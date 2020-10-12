@@ -12,19 +12,35 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+/**
+ * Represents a utility class to handle HTTP requests.
+ *
+ * @author Lucas Gong, David Han
+ * @version 2020
+ */
 public class HttpHandler {
     private static final String TAG = HttpHandler.class.getSimpleName();
-    public HttpHandler() {   }
-    public String makeServiceCall(String reqUrl) {
+
+    /**
+     * Performs a GET request at the specified URL.
+     *
+     * @param reqUrl    a String representing the URL to request the resource from
+     * @return          a String representing the response
+     */
+    public String getResourceFromURL(String reqUrl) {
         String response = null;
         try {
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            // read the response
+
+            int statusCode = conn.getResponseCode();
+            if (statusCode !=  HttpURLConnection.HTTP_OK) {
+                return null;
+            }
+
             InputStream in = new BufferedInputStream(conn.getInputStream());
             response = convertStreamToString(in);
-
         } catch (MalformedURLException e) {
             Log.e(TAG, "MalformedURLException: " + e.getMessage());
         } catch (ProtocolException e) {
@@ -37,22 +53,16 @@ public class HttpHandler {
         return response;
     }
 
+    /* Converts an InputStream to a String. */
     private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
-        String line;
-        try {
+        try ( BufferedReader reader = new BufferedReader(new InputStreamReader(is)) ) {
+            String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line).append('\n');
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         return sb.toString();
     }

@@ -5,35 +5,47 @@ import com.google.gson.annotations.SerializedName;
 
 import org.json.JSONObject;
 
-public class News {
+import java.io.Serializable;
+
+/***
+ * Represents the news articles received from the News API.
+ *
+ * @author Lucas Gong, David Han
+ * @version 2020
+ */
+public class News implements Serializable {
+    // TODO: Write a custom deserializer.
     @SerializedName("source")
     @Expose
-    private JSONObject source;
-    public JSONObject getId() {
+    private Source source;
+    public Source getSource() {
         return source;
     }
-    public void setId(JSONObject source) {
+    public void setSource(Source source) {
         this.source = source;
     }
-//    @SerializedName("id")
-//    @Expose
-//    private String id;
-//    public String getId() {
-//        return id;
-//    }
-//    public void setId(String id) {
-//        this.id = id;
-//    }
-//
-//    @SerializedName("name")
-//    @Expose
-//    private String name;
-//    public String getName() {
-//        return name;
-//    }
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+
+    public class Source implements Serializable {
+        @SerializedName("id")
+        @Expose
+        private String id;
+        public String getId() {
+            return id;
+        }
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        @SerializedName("name")
+        @Expose
+        private String name;
+        public String getName() {
+            return name;
+        }
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 
     @SerializedName("author")
     @Expose
@@ -104,5 +116,4 @@ public class News {
     public void setContent(String content) {
         this.content = content;
     }
-
 }
