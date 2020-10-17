@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Gong_Han</string>
+    <string name="logo_description">Our logo</string>
+    <string name="news_thumbnail_description">News thumbnail</string>
 </resources>

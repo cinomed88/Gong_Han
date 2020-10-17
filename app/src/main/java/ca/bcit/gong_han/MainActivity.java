@@ -21,8 +21,6 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     private List<String> items = Arrays.asList("Donald Trump", "asdfdgh", "asdzxcu", "sdfzxcis", "asdawvwx1");
-    private SearchView searchView;
-    private TextView resultTextView;
 
     /**
      * Called when the activity is starting.
@@ -34,10 +32,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        searchView = findViewById(R.id.search_view);
-        resultTextView = findViewById(R.id.keyword_list);
         // TODO: Implement AutoCompleteTextView instead.
-        resultTextView.setText(filterKeywords(""));
+        SearchView searchView = findViewById(R.id.search_view);
 
         // Add listener to search view
         searchView.setOnQueryTextListener(this);
@@ -67,22 +63,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
      */
     @Override
     public boolean onQueryTextChange(String newText) {
-        resultTextView.setText(filterKeywords(newText));
-        return true;
-    }
-
-    /* Filter keywords */
-    private String filterKeywords(String query){
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < items.size(); i++){
-            String item = items.get(i);
-            if (item.toLowerCase().contains(query.toLowerCase())) {
-                sb.append(item);
-                if (i != items.size() - 1) {
-                    sb.append("\n");
-                }
-            }
-        }
-        return sb.toString();
+        return false;
     }
 }
