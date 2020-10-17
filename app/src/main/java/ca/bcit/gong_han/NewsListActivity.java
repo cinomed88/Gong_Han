@@ -65,7 +65,7 @@ public class NewsListActivity extends ListActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.DATE, -7);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.CANADA);
 
         return SERVICE_URL + "q=" + encodedQuery + "&from=" + formatter.format(cal.getTime()) + "&sortBy=publishedAt" + "&apiKey=" + API_KEY;
     }

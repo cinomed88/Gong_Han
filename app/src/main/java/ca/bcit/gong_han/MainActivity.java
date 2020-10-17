@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * @version 2020
  */
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    private List<String> items = Arrays.asList("Donald Trump", "asdfdgh", "asdzxcu", "sdfzxcis", "asdawvwx1");
+    private SearchView searchView;
 
     /**
      * Called when the activity is starting.
@@ -32,11 +33,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // TODO: Implement AutoCompleteTextView instead.
-        SearchView searchView = findViewById(R.id.search_view);
+        searchView = findViewById(R.id.search_view);
 
         // Add listener to search view
         searchView.setOnQueryTextListener(this);
+
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setIconified(false);
+            }
+        });
     }
 
     /**

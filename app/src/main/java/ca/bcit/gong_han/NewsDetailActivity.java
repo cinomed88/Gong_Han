@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Represents a details page, showing information for a clicked news article.
  *
@@ -38,7 +40,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         name.setText(news.getSource().getName());
 
         TextView author = findViewById(R.id.tv_author);
-        author.setText(news.getAuthor());
+        String author_name = news.getAuthor() == null ? "Author unknown" : news.getAuthor();
+        author.setText(author_name);
 
         TextView title = findViewById(R.id.tv_title);
         title.setText(news.getTitle());

@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /***
  * Represents the news articles received from the News API.
@@ -100,9 +102,14 @@ public class News implements Serializable {
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
-    public String getPublishedAt() {
-        return publishedAt;
-    }
+//    public String getPublishedAt() {
+//        return publishedAt;
+//    }
+public String getPublishedAt() {
+    Pattern p = Pattern.compile("(\\d{4}-\\d{2}-\\d{2}).*?(\\d{2}:\\d{2})");
+    Matcher matcher = p.matcher(publishedAt);
+    return matcher.find() ? matcher.group(1) + " " + matcher.group(2) : "";
+}
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
     }
